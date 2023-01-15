@@ -11,7 +11,7 @@
 package Taller2;
 
 import Principal.Ejercicio;
-import Taller2.Clases.Pelicula;
+import Taller2.Otras_Clases.Pelicula;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 

@@ -1,4 +1,6 @@
-package Taller2.Clases;
+//Esta clase describe las películas que se alquilan en la tienda
+
+package Taller2.Otras_Clases;
 
 public class Pelicula {
     private String nombre;
