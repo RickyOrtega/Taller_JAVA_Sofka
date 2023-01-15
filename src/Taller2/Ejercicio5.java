@@ -36,20 +36,35 @@ public class Ejercicio5 extends Ejercicio {
 
     private void comprarProducto(){
 
-        System.out.println(this.ANSI_RESET + "Comprar producto");
+        System.out.println(this.ANSI_YELLOW + "\nComprar producto" + this.ANSI_RESET);
         System.out.print("Nombre de usuario: ");
         String usuario = sc.next();
         agregarUsuario(usuario);
         System.out.println("Productos disponibles:");
 
+        int indiceProducto = consultarProductos();
+
         try{
-            System.out.print("Opción: ");
+            System.out.print(this.ANSI_RESET + "Cantidad a comprar: ");
             String opcion = sc.next();
 
             if(opcion.equalsIgnoreCase("menu")){
                 menu();
             } else {
+                int cantidad = Integer.parseInt(opcion);
+                if(cantidad > 0){
+                    if(cantidad <= productos.get(indiceProducto).getCantidad()){
+                        productos.get(indiceProducto).setCantidad(productos.get(indiceProducto).getCantidad() - cantidad);
 
+                        System.out.println(productos.get(indiceProducto).getNombre() + " $" + productos.get(indiceProducto).getPrecio() + " x " + cantidad + " = $" + (Integer.parseInt(productos.get(indiceProducto).getPrecio()) * cantidad));
+
+                        System.out.println(this.ANSI_GREEN + "Compra exitosa." + this.ANSI_RESET);
+                    } else {
+                        System.out.println(this.ANSI_RED + "No hay suficientes productos en stock." + this.ANSI_RESET);
+                    }
+                } else {
+                    System.out.println(this.ANSI_RED + "La cantidad debe ser mayor a 0." + this.ANSI_RESET);
+                }
             }
         } catch (InputMismatchException e){
             System.out.println( this.ANSI_RED + "Solo se permiten números enteros positivos");
@@ -63,9 +78,9 @@ public class Ejercicio5 extends Ejercicio {
 
     }
 
-    private void consultarProductos(){
+    private int consultarProductos(){
 
-        System.out.println("Consultar productos");
+        System.out.println(this.ANSI_YELLOW + "\nConsultar productos" + this.ANSI_RESET);
 
         if(productos.isEmpty()){
             System.out.println(this.ANSI_RED + "No hay productos registrados");
@@ -96,18 +111,22 @@ public class Ejercicio5 extends Ejercicio {
                         System.out.println(ANSI_BLUE + "No requiere receta médica");
                     }
 
-                    menu();
+                    return Integer.parseInt(opcion)-1;
                 }
             }
         }
-
+        return 0;
     }
 
     private void devolverProducto(){
 
+        
+
     }
 
     private void menu() {
+
+        System.out.println(this.ANSI_YELLOW + "Menú");
 
         int opcion = 0;
 
@@ -124,9 +143,11 @@ public class Ejercicio5 extends Ejercicio {
             switch (opcion) {
                 case 1:
                     comprarProducto();
+                    menu();
                     break;
                 case 2:
                     consultarProductos();
+                    menu();
                     break;
                 case 3:
                     devolverProducto();
