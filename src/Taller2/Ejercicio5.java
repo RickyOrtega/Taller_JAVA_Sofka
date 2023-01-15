@@ -17,24 +17,24 @@ public class Ejercicio5 extends Ejercicio {
 
     private ArrayList<Producto> productos = new ArrayList<>();
     private ArrayList<String> clientes = new ArrayList<>();
-
-    private void cargarProductosPredefinidos(){
-        productos.add(new Producto("Acetaminofen 500 mg","American Generics","Analgésico y antipirético.","100",1000,"No requiere receta médica."));
-        productos.add(new Producto("Ibuprofeno 800 mg","Genfar","Analgésico, antiinflamatorio y antipirético.","400",500,"No requiere receta médica."));
-        productos.add(new Producto("Metocarbamol 750","Laproff","Relajante muscular.","500",800,"No requiere receta médica."));
-        productos.add(new Producto("Naproxeno 500 mg","American Generics","Antiinflamatorio.","500",400,"No requiere receta médica."));
-        productos.add(new Producto("Vitafer","No sé","Multivitamínico.","2000",120,"No requiere receta médica."));
-        productos.add(new Producto("Vitamina B12 1000 mcg","Colmed","Vitamina para el sistema nervioso.","300",300,"No requiere receta médica."));
-        productos.add(new Producto("Vitamina C 500 mg","Ecar","Vitamina para las defensas.","300",400,"No requiere receta médica."));
-        productos.add(new Producto("Vitamina D 400 UI","Colmed","Vitamina para el sistema inmune.","300",300,"No requiere receta médica."));
-        productos.add(new Producto("Vitamina E 400 UI","Colmed","Antioxidante.","300",300,"No requiere receta médica."));
+    private ArrayList<String> devoluciones = new ArrayList<>();
+    private void cargarProductosPredefinidos() {
+        productos.add(new Producto("Acetaminofen 500 mg", "American Generics", "Analgésico y antipirético.", "100", 1000, "No requiere receta médica."));
+        productos.add(new Producto("Ibuprofeno 800 mg", "Genfar", "Analgésico, antiinflamatorio y antipirético.", "400", 500, "No requiere receta médica."));
+        productos.add(new Producto("Metocarbamol 750", "Laproff", "Relajante muscular.", "500", 800, "No requiere receta médica."));
+        productos.add(new Producto("Naproxeno 500 mg", "American Generics", "Antiinflamatorio.", "500", 400, "No requiere receta médica."));
+        productos.add(new Producto("Vitafer", "No sé", "Multivitamínico.", "2000", 120, "No requiere receta médica."));
+        productos.add(new Producto("Vitamina B12 1000 mcg", "Colmed", "Vitamina para el sistema nervioso.", "300", 300, "No requiere receta médica."));
+        productos.add(new Producto("Vitamina C 500 mg", "Ecar", "Vitamina para las defensas.", "300", 400, "No requiere receta médica."));
+        productos.add(new Producto("Vitamina D 400 UI", "Colmed", "Vitamina para el sistema inmune.", "300", 300, "No requiere receta médica."));
+        productos.add(new Producto("Vitamina E 400 UI", "Colmed", "Antioxidante.", "300", 300, "No requiere receta médica."));
     }
 
-    private void agregarUsuario(String usuario){
+    private void agregarUsuario(String usuario) {
         clientes.add(usuario);
     }
 
-    private void comprarProducto(){
+    private void comprarProducto() {
 
         System.out.println(this.ANSI_YELLOW + "\nComprar producto" + this.ANSI_RESET);
         System.out.print("Nombre de usuario: ");
@@ -44,16 +44,16 @@ public class Ejercicio5 extends Ejercicio {
 
         int indiceProducto = consultarProductos();
 
-        try{
+        try {
             System.out.print(this.ANSI_RESET + "Cantidad a comprar: ");
             String opcion = sc.next();
 
-            if(opcion.equalsIgnoreCase("menu")){
+            if (opcion.equalsIgnoreCase("menu")) {
                 menu();
             } else {
                 int cantidad = Integer.parseInt(opcion);
-                if(cantidad > 0){
-                    if(cantidad <= productos.get(indiceProducto).getCantidad()){
+                if (cantidad > 0) {
+                    if (cantidad <= productos.get(indiceProducto).getCantidad()) {
                         productos.get(indiceProducto).setCantidad(productos.get(indiceProducto).getCantidad() - cantidad);
 
                         System.out.println(productos.get(indiceProducto).getNombre() + " $" + productos.get(indiceProducto).getPrecio() + " x " + cantidad + " = $" + (Integer.parseInt(productos.get(indiceProducto).getPrecio()) * cantidad));
@@ -66,62 +66,115 @@ public class Ejercicio5 extends Ejercicio {
                     System.out.println(this.ANSI_RED + "La cantidad debe ser mayor a 0." + this.ANSI_RESET);
                 }
             }
-        } catch (InputMismatchException e){
-            System.out.println( this.ANSI_RED + "Solo se permiten números enteros positivos");
+        } catch (InputMismatchException e) {
+            System.out.println(this.ANSI_RED + "Solo se permiten números enteros positivos");
             sc.next();
             comprarProducto();
-        } catch (NumberFormatException e){
-            System.out.println( this.ANSI_RED + "Solo se permiten números enteros positivos");
+        } catch (NumberFormatException e) {
+            System.out.println(this.ANSI_RED + "Solo se permiten números enteros positivos");
             sc.next();
             comprarProducto();
         }
 
     }
 
-    private int consultarProductos(){
+    private int consultarProductos() {
 
         System.out.println(this.ANSI_YELLOW + "\nConsultar productos" + this.ANSI_RESET);
 
-        if(productos.isEmpty()){
+        if (productos.isEmpty()) {
             System.out.println(this.ANSI_RED + "No hay productos registrados");
             menu();
         } else {
             for (int i = 0; i < productos.size(); i++) {
-                System.out.println((i+1) + ". " + productos.get(i).getNombre());
+                System.out.println((i + 1) + ". " + productos.get(i).getNombre());
             }
             System.out.print("Opción: ");
             String opcion = sc.next();
 
-            if(opcion.equalsIgnoreCase("menu")){
+            if (opcion.equalsIgnoreCase("menu")) {
                 menu();
             } else {
-                if (Integer.parseInt(opcion) < 1 || Integer.parseInt(opcion) > productos.size()){
+                if (Integer.parseInt(opcion) < 1 || Integer.parseInt(opcion) > productos.size()) {
                     System.out.println(this.ANSI_RED + "Opción inválida");
                     consultarProductos();
                 } else {
-                    System.out.println(this.ANSI_GREEN + "Nombre: " + productos.get(Integer.parseInt(opcion)-1).getNombre());
-                    System.out.println("Marca: " + productos.get(Integer.parseInt(opcion)-1).getMarca());
-                    System.out.println("Descripción: " + productos.get(Integer.parseInt(opcion)-1).getDescripcion());
-                    System.out.println("Precio: " + productos.get(Integer.parseInt(opcion)-1).getPrecio());
-                    System.out.println("Cantidad: " + productos.get(Integer.parseInt(opcion)-1).getCantidad());
+                    System.out.println(this.ANSI_GREEN + "Nombre: " + productos.get(Integer.parseInt(opcion) - 1).getNombre());
+                    System.out.println("Marca: " + productos.get(Integer.parseInt(opcion) - 1).getMarca());
+                    System.out.println("Descripción: " + productos.get(Integer.parseInt(opcion) - 1).getDescripcion());
+                    System.out.println("Precio: " + productos.get(Integer.parseInt(opcion) - 1).getPrecio());
+                    System.out.println("Cantidad: " + productos.get(Integer.parseInt(opcion) - 1).getCantidad());
 
-                    if(productos.get(Integer.parseInt(opcion)-1).getReceta()) {
+                    if (productos.get(Integer.parseInt(opcion) - 1).getReceta()) {
                         System.out.println(ANSI_RED + "Requiere receta médica");
                     } else {
                         System.out.println(ANSI_BLUE + "No requiere receta médica");
                     }
 
-                    return Integer.parseInt(opcion)-1;
+                    return Integer.parseInt(opcion) - 1;
                 }
             }
         }
         return 0;
     }
 
-    private void devolverProducto(){
+    private void consultarProductosCompradosPorUsuario(String usuario){
+        System.out.println(this.ANSI_YELLOW + "\nConsultar productos comprados por " + usuario + this.ANSI_RESET);
 
-        
+        if(productos.isEmpty()) {
+            System.out.println(this.ANSI_RED + "No hay productos registrados");
+            menu();
+        }else {
+            if(clientes.contains(usuario)) {
+                for (int i = 0; i < productos.size(); i++) {
+                    System.out.println((i + 1) + ". " + productos.get(i).getNombre());
+                }
+            }else {
+                menu();
+            }
+        }
 
+    }
+
+    private void devolverProducto() {
+
+        System.out.println(this.ANSI_YELLOW + "\nDevolver producto" + this.ANSI_RESET);
+        if(clientes.isEmpty()){
+            System.out.println(this.ANSI_RED + "No hay clientes registrados");
+            menu();
+        } else {
+            System.out.print("Nombre de usuario: ");
+            String usuario = sc.next();
+
+            if (clientes.contains(usuario)) {
+
+                this.consultarProductosCompradosPorUsuario(usuario);
+
+                System.out.print("Opción: ");
+                String opcion = sc.next();
+
+                if (opcion.equalsIgnoreCase("menu")) {
+                    menu();
+                } else {
+
+                    System.out.println("Ingrese la cantidad a devolver: ");
+                    String cantidad = sc.next();
+
+                    System.out.println("Ingrese el motivo de la devolución: ");
+                    String motivo = sc.next();
+
+                    productos.get(Integer.parseInt(opcion) - 1).setCantidad(productos.get(Integer.parseInt(opcion) - 1).getCantidad() + Integer.parseInt(cantidad));
+
+                    System.out.println(this.ANSI_GREEN + "Producto devuelto exitosamente." + this.ANSI_RESET);
+
+                    menu();
+                }
+
+            } else {
+                System.out.println("Parece que tu usuario no existe, por favor registrate");
+                menu();
+            }
+        }
     }
 
     private void menu() {
@@ -161,8 +214,8 @@ public class Ejercicio5 extends Ejercicio {
                     break;
             }
 
-        } catch (InputMismatchException e){
-            System.out.println( this.ANSI_RED + "Solo se permiten números enteros positivos");
+        } catch (InputMismatchException e) {
+            System.out.println(this.ANSI_RED + "Solo se permiten números enteros positivos");
             sc.next();
             menu();
         }
