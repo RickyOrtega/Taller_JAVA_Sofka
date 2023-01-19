@@ -10,5 +10,11 @@ de que se requiera inventariar cambios repuestos en la motocicleta al entregarla
 
 package Taller2;
 
-public class Taller6 {
+import Principal.Ejercicio;
+
+public class Ejercicio6 extends Ejercicio {
+    @Override
+    public void ejecutar() {
+
+    }
 }
