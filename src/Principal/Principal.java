@@ -5,7 +5,7 @@ import Taller2.*;
 
 public class Principal {
     public static void main(String[] args) {
-        Taller2.Ejercicio7 ejercicio7 = new Taller2.Ejercicio7();
-        ejercicio7.ejecutar();
+        Taller2.Ejercicio8 ejercicio8 = new Taller2.Ejercicio8();
+        ejercicio8.ejecutar();
     }
 }
